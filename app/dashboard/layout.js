@@ -1,11 +1,13 @@
+
+
 import Header from '@/componets/Header'
 import Sidebar from '@/componets/Sidebar'
-
 import React from 'react'
 
 const DashBoardLayout = ({ children }) => {
   return (
-    <main className="relative">
+    
+     <main className="relative">
        <Header/>
         <div className="flex">
             <Sidebar/>
@@ -17,7 +19,9 @@ const DashBoardLayout = ({ children }) => {
             </section>
         </div>   
     </main>
-   
+ 
+
+
   )
 }
 
