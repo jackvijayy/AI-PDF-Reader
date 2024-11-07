@@ -1,25 +1,23 @@
+import Header from "@/app/dashboard/_components/Header"
+import Sidebar from "@/app/dashboard/_components/Sidebar"
 
 
-import Header from '@/componets/Header'
-import Sidebar from '@/componets/Sidebar'
-import React from 'react'
+
 
 const DashBoardLayout = ({ children }) => {
   return (
-    
-     <main className="relative">
-       <Header/>
-        <div className="flex">
+    <div>
+        <div className="md:w-64 h-screen fixed">
             <Sidebar/>
-            <section className="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-28 max-md:pb-14 sm:px-14">
-                <div>
-                    {children}
-                </div>
-
-            </section>
-        </div>   
-    </main>
- 
+        </div>
+        <div className="md:ml-80">
+            <Header/>
+            <div className="p-10">
+            {children}
+            </div>
+        </div>
+    </div>
+    
 
 
   )
