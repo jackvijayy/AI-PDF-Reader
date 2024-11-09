@@ -8,7 +8,7 @@ import UploadPdfDialog from "./UploadPdfDialog";
 const Sidebar = () => {
   return (
    <div className="shadow-md h-screen p-7 max-md:hidden">
-    <Image src="/logop.png" alt="logo" width={170} height={120}/>
+    <Image src="/logop.png" alt="logo" priority width={170} height={120}/>
     <div className="mt-10">
       
       <UploadPdfDialog>
