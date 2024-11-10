@@ -1,5 +1,5 @@
 "use client";
-
+import { v4 as uuidv4 } from 'uuid';
 import React, { useState } from "react";
 import {
   Dialog,
@@ -16,11 +16,14 @@ import { Button } from "@/components/ui/button";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Loader2Icon } from "lucide-react";
+import { useUser } from '@clerk/nextjs';
 
 const UploadPdfDialog = ({ children }) => {
   const generateUploadUrl = useMutation(api.fileStorage.generateUploadUrl);
-  
+  const AddFileEntry=useMutation(api.fileStorage.AddFileEntryToDb);
+  const {user}=useUser();
   const [file, setFile] = useState();
+  const [fileName,setFileName]=useState();
 
   const [loading, setLoading] = useState(false);
 
@@ -40,8 +43,16 @@ const UploadPdfDialog = ({ children }) => {
       body: file,
     });
     const { storageId } = await result.json();
-    
+    const fileId=uuidv4()
     console.log("storage",storageId);
+
+    const res=await AddFileEntry({
+      fileId:fileId,
+      storageId:storageId,
+      fileName:fileName ?? "Untitled File",
+      createdBy:user?.primaryEmailAddress?.emailAddress
+    })
+    console.log(res);
     
     setLoading(false);
   };
@@ -65,7 +76,7 @@ const UploadPdfDialog = ({ children }) => {
               </div>
               <div className="mt-2 ">
                 <label htmlFor="">File Name *</label>
-                <Input placeholder="File name" />
+                <Input placeholder="File name"  onChange={(e)=>setFileName(e.target.value)}/>
               </div>
             </div>
           </DialogDescription>

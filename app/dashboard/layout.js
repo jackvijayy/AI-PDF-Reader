@@ -1,9 +1,6 @@
 import Header from "@/app/dashboard/_components/Header"
 import Sidebar from "@/app/dashboard/_components/Sidebar"
 
-
-
-
 const DashBoardLayout = ({ children }) => {
   return (
     <div>
