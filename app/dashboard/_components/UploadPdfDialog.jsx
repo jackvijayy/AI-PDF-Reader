@@ -35,35 +35,39 @@ const UploadPdfDialog = ({ children }) => {
   };
 
   const onUpload = async () => {
-    // setLoading(true);
-    // // Step 1: Get a short-lived upload URL
-    // const postUrl = await generateUploadUrl();
+    setLoading(true);
+    // Step 1: Get a short-lived upload URL
+    const postUrl = await generateUploadUrl();
 
-    // // Step 2: POST the file to the URL
-    // const result = await fetch(postUrl, {
-    //   method: "POST",
-    //   headers: { "Content-Type": file?.type },
-    //   body: file,
-    // });
-    // const { storageId } = await result.json();
-    // const fileId=uuidv4();
-    // const fileUrl= await getFileUrl({storageId:storageId})
+    // Step 2: POST the file to the URL
+    const result = await fetch(postUrl, {
+      method: "POST",
+      headers: { "Content-Type": file?.type },
+      body: file,
+    });
+    const { storageId } = await result.json();
+    const fileId=uuidv4();
+    const fileUrl= await getFileUrl({storageId:storageId})
 
 
-    // const resp=await AddFileEntry({
-    //   fileId:fileId,
-    //   storageId:storageId,
-    //   fileName:fileName ?? "Untitled File",
-    //   fileUrl:fileUrl,
-    //   createdBy:user?.primaryEmailAddress?.emailAddress
-    // })
+    const resp=await AddFileEntry({
+      fileId:fileId,
+      storageId:storageId,
+      fileName:fileName ?? "Untitled File",
+      fileUrl:fileUrl,
+      createdBy:user?.primaryEmailAddress?.emailAddress
+    })
     // console.log(resp);
 
-    //api call to fetch from pdf process data
+    // api call to fetch from pdf process data
 
-    const apiRes=await axios.get('/api/pdf-loader');
-    console.log(apiRes.data.result);
-    embeddDocument({})
+    const ApiResp=await axios.get('/api/pdf-loader?pdfUrl='+fileUrl);
+    console.log(ApiResp.data.result);
+     await embeddDocument({
+      splitText:ApiResp.data.result,
+      fileId:fileId,
+    })
+    // console.log(embeddedResult)
     
     setLoading(false);
   };

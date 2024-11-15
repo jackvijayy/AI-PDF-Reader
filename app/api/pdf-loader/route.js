@@ -4,10 +4,14 @@ import { NextResponse } from "next/server";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
-const pdfURl="https://brazen-sheep-58.convex.cloud/api/storage/2aba7b3a-5d83-4ff3-95c8-1122a689509a"
+// const pdfURl="https://brazen-sheep-58.convex.cloud/api/storage/2aba7b3a-5d83-4ff3-95c8-1122a689509a"
 export async function GET(req){
+  const reqUrl=req.url;
+  const {searchParams}=new URL(reqUrl);
+  const pdfUrl=searchParams.get('pdfUrl');
+  console.log(pdfUrl);
 
-    const response =await fetch(pdfURl);
+    const response =await fetch(pdfUrl);
     const data=await response.blob();
     const loader=new PDFLoader(data);
     const docs=await loader.load();
