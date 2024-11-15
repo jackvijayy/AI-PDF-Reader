@@ -27,6 +27,7 @@ const UploadPdfDialog = ({ children }) => {
   const {user}=useUser();
   const [file, setFile] = useState();
   const [fileName,setFileName]=useState();
+  const[open,setOpen]=useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -70,12 +71,15 @@ const UploadPdfDialog = ({ children }) => {
     // console.log(embeddedResult)
     
     setLoading(false);
+    setOpen(false);
   };
 
 
   return (
-    <Dialog>
-      <DialogTrigger>{children}</DialogTrigger>
+    <Dialog open={open}>
+      <DialogTrigger asChild>
+        <Button onClick={()=>setOpen(true)} className="w-full">+ Upload PDF files</Button>
+        </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Upload Pdf File</DialogTitle>
@@ -102,7 +106,7 @@ const UploadPdfDialog = ({ children }) => {
               Close
             </Button>
           </DialogClose>
-          <Button onClick={onUpload}>
+          <Button onClick={onUpload} disabled={loading}>
             {loading ? <Loader2Icon className="animate-spin" /> : "Upload"}
           </Button>
         </DialogFooter>
