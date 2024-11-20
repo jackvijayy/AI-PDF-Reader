@@ -5,6 +5,7 @@ import WorkHeader from '../_components/WorkHeader';
 import PdfViewer from '../_components/PdfViewer';
 import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import TextEditoe from '../_components/TextEditoe';
 
 const workspace = () => {
 
@@ -25,6 +26,7 @@ const workspace = () => {
             <div className=' grid grid-cols-2 gap-2'>
                 <div>
                     {/* text editor */}
+                    <TextEditoe/>
 
                 </div>
                 <div>
